@@ -223,6 +223,71 @@ textarea.input::placeholder {
   color: #A6A6A6;
 }
 
+.checkbox {
+  position: relative;
+}
+
+.checkbox__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.checkbox__input:checked + .checkbox__text:after {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.checkbox__text {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 120%;
+  /* identical to box height, or 26px */
+  letter-spacing: 0.03em;
+  /* black */
+  color: #181C1C;
+}
+
+.checkbox__text:before {
+  content: "";
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  margin: 0 10px 0 0;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 20px;
+  flex: 0 0 20px;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: #F5F5F5;
+  border-radius: 4px;
+}
+
+.checkbox__text:after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 5px;
+  top: 5px;
+  background: #0CBCBC;
+  border-radius: 2px;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
 .select {
   display: block;
   width: 100%;
@@ -230,8 +295,8 @@ textarea.input::placeholder {
 }
 
 .select__head {
-  min-height: 64px;
-  padding: 4px 28px 4px 24px;
+  min-height: 56px;
+  padding: 15px 25px;
   cursor: pointer;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -242,14 +307,13 @@ textarea.input::placeholder {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  color: #B7AFEE;
-  font-weight: 500;
-  font-size: 1.142rem;
-  line-height: 125%;
-  background-color: #fff;
+  background-color: #F5F5F5;
   width: 100%;
-  border: 1px solid #E0DCFF;
   border-radius: 8px;
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: #181C1C;
 }
 
 .select__head svg {
@@ -258,9 +322,9 @@ textarea.input::placeholder {
   transition: transform 0.3s ease 0s;
   transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
   height: 10px;
-  width: 10px;
+  width: 20px;
   margin: 0 0 0 17px;
-  fill: rgba(9, 10, 10, 0.2509803922);
+  color: #090A0A !important;
   opacity: 0.25;
 }
 
@@ -270,9 +334,8 @@ textarea.input::placeholder {
 }
 
 .select__list {
-  border: 1px solid #E0DCFF;
   border-radius: 8px;
-  background-color: #fff;
+  background: #F5F5F5;
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
@@ -282,13 +345,13 @@ textarea.input::placeholder {
 }
 
 .select__item {
-  padding: 25px 28px 25px 24px;
+  padding: 15px 25px;
   -webkit-transition: color 0.3s ease 0s;
   transition: color 0.3s ease 0s;
-  color: #B7AFEE;
-  font-weight: 500;
-  font-size: 1.142rem;
-  line-height: 125%;
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: #181C1C;
   cursor: pointer;
 }
 
@@ -563,6 +626,376 @@ svg {
 
 .icon-menu {
   display: none;
+}
+
+/*
+  All a user has to do to change the calendar size is
+  change the font-size on the container and everything
+  magically resizes accordingly. Relative units ftw!
+*/
+
+.qs-datepicker-container {
+  font-size: 1rem;
+  position: absolute;
+  width: 15.625em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  z-index: 9001;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid #090A0A;
+  overflow: hidden;
+  background: #F5F5F5;
+  border-radius: 8px;
+  -webkit-box-shadow: 0 1.25em 1.25em -0.9375em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1.25em 1.25em -0.9375em rgba(0, 0, 0, 0.3);
+}
+
+.qs-datepicker-container * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.qs-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.qs-hidden {
+  display: none;
+}
+
+.qs-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  width: 100%;
+  height: 100%;
+  padding: 0.5em;
+  z-index: 1;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.qs-overlay.qs-hidden {
+  opacity: 0;
+  z-index: -1;
+}
+
+.qs-overlay .qs-overlay-year {
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  color: white;
+  font-size: 0.875em;
+  padding: 0.25em 0;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+.qs-overlay .qs-overlay-year::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.qs-overlay .qs-close {
+  padding: 0.5em;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.qs-overlay .qs-submit {
+  border: 1px solid white;
+  border-radius: 0.263921875em;
+  padding: 0.5em;
+  margin: 0 auto auto;
+  cursor: pointer;
+  background: rgba(128, 128, 128, 0.4);
+}
+
+.qs-overlay .qs-submit.qs-disabled {
+  color: #090A0A;
+  border-color: #090A0A;
+  cursor: not-allowed;
+}
+
+.qs-overlay .qs-overlay-month-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.qs-overlay .qs-overlay-month {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 33.3333333333%;
+  cursor: pointer;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.15s;
+  transition: opacity 0.15s;
+}
+
+.qs-overlay .qs-overlay-month.active,
+.qs-overlay .qs-overlay-month:hover {
+  opacity: 1;
+}
+
+.qs-controls {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background: light #090A0A;
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+  -webkit-transition: -webkit-filter 0.3s;
+  transition: -webkit-filter 0.3s;
+  transition: filter 0.3s;
+  transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.qs-controls.qs-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.qs-arrow {
+  height: 1.5625em;
+  width: 1.5625em;
+  position: relative;
+  cursor: pointer;
+  border-radius: 0.263921875em;
+  -webkit-transition: background 0.15s;
+  transition: background 0.15s;
+}
+
+.qs-arrow:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.qs-arrow:hover.qs-left:after {
+  border-right-color: black;
+}
+
+.qs-arrow:hover.qs-right:after {
+  border-left-color: black;
+}
+
+.qs-arrow:after {
+  content: "";
+  border: 0.390625em solid transparent;
+  position: absolute;
+  top: 50%;
+  -webkit-transition: border 0.2s;
+  transition: border 0.2s;
+}
+
+.qs-arrow.qs-left:after {
+  border-right-color: #090A0A;
+  right: 50%;
+  -webkit-transform: translate(25%, -50%);
+  transform: translate(25%, -50%);
+}
+
+.qs-arrow.qs-right:after {
+  border-left-color: #090A0A;
+  left: 50%;
+  -webkit-transform: translate(-25%, -50%);
+  transform: translate(-25%, -50%);
+}
+
+.qs-month-year {
+  font-weight: bold;
+  -webkit-transition: border 0.2s;
+  transition: border 0.2s;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+
+.qs-month-year:hover {
+  border-bottom: 1px solid #090A0A;
+}
+
+.qs-month-year:focus,
+.qs-month-year:active:focus {
+  outline: none;
+}
+
+.qs-month {
+  padding-right: 0.5ex;
+}
+
+.qs-year {
+  padding-left: 0.5ex;
+}
+
+.qs-squares {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0.3125em;
+  -webkit-filter: blur(0px);
+  filter: blur(0px);
+  -webkit-transition: -webkit-filter 0.3s;
+  transition: -webkit-filter 0.3s;
+  transition: filter 0.3s;
+  transition: filter 0.3s, -webkit-filter 0.3s;
+}
+
+.qs-squares.qs-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.qs-square {
+  width: 14.2857142857%;
+  height: 1.5625em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-transition: background 0.1s;
+  transition: background 0.1s;
+  border-radius: 0.263921875em;
+}
+
+.qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover {
+  background: #FF6700;
+}
+
+.qs-current {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/*
+  3 possibilities:
+    1. Single, active date.
+    2. Daterange start selection.
+    3. Daterange end selection.
+*/
+
+.qs-active,
+.qs-range-start,
+.qs-range-end {
+  background: #0CBCBC;
+}
+
+.qs-range-start:not(.qs-range-6) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.qs-range-middle {
+  background: #0CBCBC;
+}
+
+.qs-range-middle:not(.qs-range-0):not(.qs-range-6) {
+  border-radius: 0;
+}
+
+.qs-range-middle.qs-range-0 {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.qs-range-middle.qs-range-6 {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.qs-range-end:not(.qs-range-0) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.qs-disabled,
+.qs-outside-current-month {
+  opacity: 0.2;
+}
+
+.qs-disabled {
+  cursor: not-allowed;
+}
+
+.qs-empty {
+  cursor: default;
+}
+
+.qs-day {
+  cursor: default;
+  font-weight: bold;
+  color: #090A0A;
+}
+
+.qs-event {
+  position: relative;
+}
+
+.qs-event:after {
+  content: "";
+  position: absolute;
+  width: 0.46875em;
+  height: 0.46875em;
+  border-radius: 50%;
+  background: #07f;
+  bottom: 0;
+  right: 0;
 }
 
 .intro {
@@ -1123,12 +1556,114 @@ svg {
   background: #FAFAFA;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 -20px;
+}
+
+.form-calculator__column {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 50%;
+  flex: 0 1 50%;
+  padding: 0 20px;
+}
+
+.form-calculator__label {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: #181C1C;
+  margin-bottom: 10px;
+}
+
+.form-calculator__select {
+  margin-bottom: 30px;
+}
+
+.form-calculator__select:last-child {
+  margin: 0;
+}
+
+.form-calculator__input {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.form-calculator__input input {
+  width: 100%;
+  padding: 0 62px 0 25px;
+  min-height: 56px;
+  background: #F5F5F5;
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: rgba(24, 28, 28, 0.25);
+}
+
+.form-calculator__input span {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: #181C1C;
+  border-radius: 8px;
+}
+
+.form-calculator__calendar {
+  position: relative;
+}
+
+.form-calculator__calendar input {
+  width: 100%;
+  padding: 0 25px 0 55px;
+  min-height: 56px;
+  background: #F5F5F5;
+  font-size: 16px;
+  line-height: 162.4%;
+  letter-spacing: 0.03em;
+  color: rgba(24, 28, 28, 0.25);
+  border-radius: 8px;
+}
+
+.form-calculator__calendar svg {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  left: 25px;
+  width: 24px;
+  height: 24px;
+  fill: #F5F5F5;
+  color: #090A0A;
 }
 
 .form-calculator__total {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 430px;
   flex: 0 0 430px;
+}
+
+.form-calculator__services {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.form-calculator__checkbox {
+  margin-bottom: 14px;
 }
 
 .total {
@@ -1142,7 +1677,6 @@ svg {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0CBCBC;
   opacity: 0.8;
   z-index: 3;
 }
@@ -1746,7 +2280,7 @@ svg {
 
 @media (any-hover: hover) {
   .select__item:hover {
-    color: #7464DC;
+    color: #000;
   }
 
   .button_transparent:hover {

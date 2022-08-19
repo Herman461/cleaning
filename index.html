@@ -381,9 +381,11 @@
             <section class="page__calculator calculator">
                 <div class="calculator__container container">
                     <h2 class="calculator__title title">Калькулятор расчета уборки</h2>
-                    <form class="calculator__form form-calculator">
+                    <form action="#" class="calculator__form form-calculator">
                         <div class="form-calculator__actions">
+
                             <div class="form-calculator__column">
+                                <div class="form-calculator__label">Объект уборки</div>
                                 <div class="form-calculator__select select">
                                     <div class="select__icon stroke">
                                         <svg>
@@ -391,13 +393,79 @@
                                         </svg>
                                     </div>
                                     <select>
-                                        <option disabled value="1">Item 1</option>
+                                        <option disabled value="1">Квартира</option>
                                         <option value="2">Item 2</option>
                                         <option value="2">Item 3</option>
                                     </select>
                                 </div>
+                                <div class="form-calculator__label">Вид уборки</div>
+                                <div class="form-calculator__select select">
+                                    <div class="select__icon stroke">
+                                        <svg>
+                                            <use xlink:href="images/icons/icons.svg#arrow-down"></use>
+                                        </svg>
+                                    </div>
+                                    <select>
+                                        <option disabled value="1">Генеральная</option>
+                                        <option value="2">Item 2</option>
+                                        <option value="2">Item 3</option>
+                                    </select>
+                                </div>
+                                <label for="square" class="form-calculator__label">Площадь</label>
+                                <div class="form-calculator__input">
+                                    <input id="square" type="text">
+                                    <span>m2</span>
+                                </div>
+                                <label for="square" class="form-calculator__label">Дата уборки</label>
+                                <div class="form-calculator__calendar">
+                                    <svg>
+                                        <use xlink:href="images/icons/icons.svg#calendar"></use>
+                                    </svg>
+                                    <input type="text" id="calendar" />
+                                </div>
                             </div>
-                            <div class="form-calculator__column"></div>
+                            <div class="form-calculator__column">
+                                <div class="form-calculator__label">Доп. услуги</div>
+                                <div class="form-calculator__services">
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Какая нибудь доп. услуга</span>
+                                        </span>
+                                    </label>
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Еще какая нибудь доп. услуга</span>
+                                        </span>
+                                    </label>
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Дополнительная услуга</span>
+                                        </span>
+                                    </label>
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Дополнительная услуга 1</span>
+                                        </span>
+                                    </label>
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Дополнительная услуга 2</span>
+                                        </span>
+                                    </label>
+                                    <label class="form-calculator__checkbox checkbox">
+                                        <input class="checkbox__input" type="checkbox">
+                                        <span class="checkbox__text">
+                                            <span>Дополнительная услуга 3</span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                            </div>
                         </div>
                         <div class="form-calculator__total total">
                             <div class="total__image ibg">
@@ -447,6 +515,7 @@
         </div>
 
     </div>
+    <script src="js/datepicker.js"></script>
     <script src="js/script.js"></script>
 </body>
 
