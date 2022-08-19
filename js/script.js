@@ -286,14 +286,14 @@ var _loop2 = function _loop2(index) {
     selectList.append(newOption);
   }
 
-  for (var _index = 1; _index < selectOptionLength; _index++) {
+  for (var _index3 = 1; _index3 < selectOptionLength; _index3++) {
     var _newOption = document.createElement('li');
 
-    _newOption.textContent = selectOption[_index].textContent;
+    _newOption.textContent = selectOption[_index3].textContent;
 
     _newOption.classList.add('select__item');
 
-    _newOption.dataset.value = selectOption[_index].value;
+    _newOption.dataset.value = selectOption[_index3].value;
     selectList.append(_newOption);
   }
 
@@ -318,8 +318,8 @@ var _loop2 = function _loop2(index) {
       var oldSelectedEl = item.querySelector('option[selected]');
 
       if (!newSelectedEl) {
-        for (var _index2 = 1; _index2 < selectOptionLength; _index2++) {
-          var option = selectOption[_index2];
+        for (var _index4 = 1; _index4 < selectOptionLength; _index4++) {
+          var option = selectOption[_index4];
 
           if (option.textContent == value) {
             newSelectedEl = option;
@@ -353,6 +353,47 @@ window.addEventListener('click', function (e) {
     slideUp(activeSelect);
     activeSelect = null;
   }
+}); //BuildSlider
+
+var sliders = document.querySelectorAll(".swiper");
+
+if (sliders) {
+  for (var _index = 0; _index < sliders.length; _index++) {
+    var slider = sliders[_index];
+
+    if (!slider.classList.contains('swiper-build')) {
+      var slider_items = slider.children;
+
+      if (slider_items) {
+        for (var _index2 = 0; _index2 < slider_items.length; _index2++) {
+          var el = slider_items[_index2];
+          el.classList.add('swiper-slide');
+        }
+      }
+
+      var slider_content = slider.innerHTML;
+      var slider_wrapper = document.createElement("div");
+      slider_wrapper.classList.add('swiper-wrapper');
+      slider_wrapper.innerHTML = slider_content;
+      slider.innerHTML = "";
+      slider.appendChild(slider_wrapper);
+      slider.classList.add('swiper-build');
+    }
+
+    if (slider.classList.contains('_gallery')) {//slider.data('lightGallery').destroy(true);
+    }
+  }
+
+  sliders_build_callback();
+}
+
+function sliders_build_callback() {}
+
+var brandsSlider = new Swiper('.brands__slider', {
+  slidesPerView: 6,
+  speed: 800,
+  loop: true,
+  spaceBetween: 82
 });
 var isMobile = {
   Android: function Android() {
