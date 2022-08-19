@@ -395,6 +395,50 @@ var brandsSlider = new Swiper('.brands__slider', {
   loop: true,
   spaceBetween: 82
 });
+var resultSlider = new Swiper('.result__slider', {
+  slidesPerView: 1,
+  speed: 800,
+  loop: true,
+  spaceBetween: 20,
+  pagination: {
+    el: '.result__dots',
+    clickable: true
+  }
+});
+window.addEventListener('click', function (e) {
+  if (e.target.closest('.result-controls__button-prev')) {
+    resultSlider.slidePrev();
+  }
+
+  if (e.target.closest('.result__button-prev')) {
+    resultSlider.slidePrev();
+  }
+
+  if (e.target.closest('.result-controls__button-next')) {
+    resultSlider.slideNext();
+  }
+
+  if (e.target.closest('.result__button-next')) {
+    resultSlider.slideNext();
+  }
+});
+
+function updateHeaderBorder() {
+  var shortLine = document.querySelector('.header__line_short');
+  var longLine = document.querySelector('.header__line_long');
+  var paddingWidth = 30;
+  var logoWidth = document.querySelector('.header .logo__image').offsetWidth;
+  var containerWidth = document.querySelector('.header__container').offsetWidth;
+  var offset = window.innerWidth - containerWidth;
+  var shortLineWidth = offset - offset / 2 - 11;
+  var longLineWidth = window.innerWidth - offset / 2 - logoWidth - paddingWidth - 9;
+  shortLine.style.width = shortLineWidth + 'px';
+  longLine.style.width = longLineWidth + 'px';
+  console.log(longLineWidth);
+}
+
+window.addEventListener('resize', updateHeaderBorder);
+updateHeaderBorder();
 var isMobile = {
   Android: function Android() {
     return navigator.userAgent.match(/Android/i);
