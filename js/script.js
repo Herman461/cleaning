@@ -286,14 +286,14 @@ var _loop2 = function _loop2(index) {
     selectList.append(newOption);
   }
 
-  for (var _index3 = 1; _index3 < selectOptionLength; _index3++) {
+  for (var _index4 = 1; _index4 < selectOptionLength; _index4++) {
     var _newOption = document.createElement('li');
 
-    _newOption.textContent = selectOption[_index3].textContent;
+    _newOption.textContent = selectOption[_index4].textContent;
 
     _newOption.classList.add('select__item');
 
-    _newOption.dataset.value = selectOption[_index3].value;
+    _newOption.dataset.value = selectOption[_index4].value;
     selectList.append(_newOption);
   }
 
@@ -318,8 +318,8 @@ var _loop2 = function _loop2(index) {
       var oldSelectedEl = item.querySelector('option[selected]');
 
       if (!newSelectedEl) {
-        for (var _index4 = 1; _index4 < selectOptionLength; _index4++) {
-          var option = selectOption[_index4];
+        for (var _index5 = 1; _index5 < selectOptionLength; _index5++) {
+          var option = selectOption[_index5];
 
           if (option.textContent == value) {
             newSelectedEl = option;
@@ -439,6 +439,28 @@ function updateHeaderBorder() {
 
 window.addEventListener('resize', updateHeaderBorder);
 updateHeaderBorder();
+var submenu = document.querySelectorAll('.menu__item_submenu');
+
+if (submenu.length > 0) {
+  var _loop3 = function _loop3(_index3) {
+    var item = submenu[_index3];
+    item.addEventListener('mouseenter', function () {
+      var submenuBody = item.querySelector('.submenu');
+      submenuBody.classList.add('active');
+      item.classList.add('active');
+    });
+    item.addEventListener('mouseleave', function () {
+      var submenuBody = item.querySelector('.submenu');
+      submenuBody.classList.remove('active');
+      item.classList.remove('active');
+    });
+  };
+
+  for (var _index3 = 0; _index3 < submenu.length; _index3++) {
+    _loop3(_index3);
+  }
+}
+
 var isMobile = {
   Android: function Android() {
     return navigator.userAgent.match(/Android/i);

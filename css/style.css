@@ -689,6 +689,15 @@ svg {
   height: auto;
 }
 
+.menu__item_submenu {
+  position: relative;
+}
+
+.menu__item_submenu.active .menu__arrow {
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+
 .menu__link {
   font-weight: 600;
   line-height: 115.9%;
@@ -704,6 +713,11 @@ svg {
   transition: all 0.3s ease 0s;
 }
 
+.menu__arrow {
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
 .menu__arrow svg {
   width: 12.5px;
   height: 6.25px;
@@ -715,7 +729,39 @@ svg {
 
 .menu__submenu {
   position: absolute;
-  display: none;
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translate(0, 105%);
+  transform: translate(0, 105%);
+  min-height: 150px;
+  border-radius: 8px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.menu__submenu.active {
+  -webkit-transform: translate(0, 100%);
+  transform: translate(0, 100%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.submenu {
+  padding: 10px;
+}
+
+.submenu__item {
+  margin-bottom: 15px;
+}
+
+.submenu__link {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .icon-menu {
@@ -2183,6 +2229,7 @@ svg {
 }
 
 .stub__logo {
+  display: inline-block;
   margin-bottom: 70px;
 }
 
@@ -2612,6 +2659,10 @@ svg {
   .menu__link {
     min-height: auto;
     padding: 0;
+  }
+
+  .menu__submenu {
+    display: none;
   }
 
   .icon-menu {
