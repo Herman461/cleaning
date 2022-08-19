@@ -511,3 +511,50 @@ var picker = datepicker('#calendar', {
   customMonths: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
   customDays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 });
+document.addEventListener('DOMContentLoaded', function () {
+  var modalButtons = document.querySelectorAll('.open-modal'),
+      overlay = document.querySelector('.overlay'),
+      closeButtons = document.querySelectorAll('.modal-close');
+  modalButtons.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      var scrollbarSize = window.innerWidth - document.body.offsetWidth;
+      var modalId = this.getAttribute('data-modal'),
+          modalElem = document.querySelector('.modal[data-modal="' + modalId + '"]');
+      modalElem.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.paddingRight = scrollbarSize + 'px';
+      document.body.classList.add('lock');
+    });
+  });
+  closeButtons.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      var parentModal = this.closest('.modal');
+      parentModal.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.classList.remove('lock');
+      document.body.style.paddingRight = '0';
+    });
+  });
+  document.body.addEventListener('keyup', function (e) {
+    var key = e.keyCode;
+
+    if (key == 27) {
+      document.querySelector('.modal.active').classList.remove('active');
+      document.querySelector('.overlay').classList.remove('active');
+      document.body.classList.remove('lock');
+      document.body.style.paddingRight = '0';
+    }
+
+    ;
+  }, false);
+  overlay.addEventListener('click', function (e) {
+    if (e.target.classList.contains('overlay')) {
+      document.querySelector('.modal.active').classList.remove('active');
+      this.classList.remove('active');
+      document.body.classList.remove('lock');
+      document.body.style.paddingRight = '0';
+      console.log('');
+    }
+  });
+}); // end ready
