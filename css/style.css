@@ -640,11 +640,22 @@ svg {
 
 .modal {
   opacity: 0;
-  padding: 50px 25px 30px;
+  padding: 35px 25px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
   position: relative;
   visibility: hidden;
   width: 100%;
   max-width: 500px;
+}
+
+.modal__title {
+  margin-bottom: 30px;
 }
 
 .modal.active {
@@ -671,17 +682,31 @@ svg {
 }
 
 .modal__close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  cursor: pointer;
   width: 30px;
   height: 20px;
+  cursor: pointer;
+  display: block;
+  position: relative;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  margin-bottom: 30px;
+}
+
+.modal__close::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 60;
 }
 
 .modal__close span {
-  width: 100%;
-  height: 100%;
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
   position: relative;
   display: block;
 }
@@ -716,6 +741,15 @@ svg {
 
 .form-modal__input:last-child {
   margin: 0;
+}
+
+.form-modal__checkbox {
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.form-modal__checkbox span {
+  color: #fff;
 }
 
 .header {
