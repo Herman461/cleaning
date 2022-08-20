@@ -338,6 +338,7 @@ var _loop2 = function _loop2(index) {
 
       head.classList.remove('active');
       activeSelect = null;
+      e.target.closest('.select').querySelector('select').dispatchEvent(new Event('change'));
       slideUp(selectList);
     }
   });
@@ -557,4 +558,4 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('');
     }
   });
-}); // end ready
+});
