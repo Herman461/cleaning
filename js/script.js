@@ -519,13 +519,17 @@ window.addEventListener('scroll', function () {
     header.classList.remove('scroll');
   }
 });
-var picker = datepicker('#calendar', {
-  formatter: function formatter(input, date, instance) {
-    input.value = date.toLocaleDateString().replace(/\./g, '/');
-  },
-  customMonths: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-  customDays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-});
+
+if (document.querySelector('#calendar')) {
+  var picker = datepicker('#calendar', {
+    formatter: function formatter(input, date, instance) {
+      input.value = date.toLocaleDateString().replace(/\./g, '/');
+    },
+    customMonths: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    customDays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   var modalButtons = document.querySelectorAll('.open-modal'),
       overlay = document.querySelector('.overlay'),
