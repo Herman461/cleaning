@@ -391,10 +391,25 @@ if (sliders) {
 function sliders_build_callback() {}
 
 var brandsSlider = new Swiper('.brands__slider', {
-  slidesPerView: 6,
   speed: 800,
   loop: true,
-  spaceBetween: 82
+  spaceBetween: 40,
+  breakpoints: {
+    1100: {
+      slidesPerView: 6,
+      spaceBetween: 82
+    },
+    991: {
+      slidesPerView: 5,
+      spaceBetween: 50
+    },
+    767: {
+      slidesPerView: 4
+    },
+    574: {
+      slidesPerView: 3
+    }
+  }
 });
 var resultSlider = new Swiper('.result__slider', {
   slidesPerView: 1,
@@ -427,15 +442,14 @@ window.addEventListener('click', function (e) {
 function updateHeaderBorder() {
   var shortLine = document.querySelector('.header__line_short');
   var longLine = document.querySelector('.header__line_long');
-  var paddingWidth = 30;
+  var paddingWidth = 60;
   var logoWidth = document.querySelector('.header .logo__image').offsetWidth;
   var containerWidth = document.querySelector('.header__container').offsetWidth;
   var offset = window.innerWidth - containerWidth;
   var shortLineWidth = offset - offset / 2 - 11;
-  var longLineWidth = window.innerWidth - offset / 2 - logoWidth - paddingWidth - 9;
+  var longLineWidth = window.innerWidth - offset / 2 - logoWidth - paddingWidth;
   shortLine.style.width = shortLineWidth + 'px';
   longLine.style.width = longLineWidth + 'px';
-  console.log(longLineWidth);
 }
 
 window.addEventListener('resize', updateHeaderBorder);
