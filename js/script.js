@@ -390,6 +390,130 @@ if (sliders) {
 
 function sliders_build_callback() {}
 
+var spoilersArray = document.querySelectorAll("[data-spoilers]");
+
+if (spoilersArray.length > 0) {
+  // Инициализация
+  var initSpoilers = function initSpoilers(spoilersArray) {
+    var matchMedia = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    spoilersArray.forEach(function (spoilersBlock) {
+      spoilersBlock = matchMedia ? spoilersBlock.item : spoilersBlock;
+
+      if (matchMedia.matches || !matchMedia) {
+        spoilersBlock.classList.add("init");
+        initSpoilerBody(spoilersBlock);
+        spoilersBlock.addEventListener("click", setSpoilerAction);
+      } else {
+        spoilersBlock.classList.remove("init");
+        initSpoilerBody(spoilersBlock, false);
+        spoilersBlock.removeEventListener("click", setSpoilerAction);
+      }
+    });
+  }; // Работа с контентом
+
+
+  var initSpoilerBody = function initSpoilerBody(spoilersBlock) {
+    var hideSpoilerBody = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var spoilerTitles = spoilersBlock.querySelectorAll("[data-spoiler]");
+
+    if (spoilerTitles.length > 0) {
+      spoilerTitles.forEach(function (spoilerTitle) {
+        if (hideSpoilerBody) {
+          spoilerTitle.removeAttribute("tabindex");
+
+          if (!spoilerTitle.classList.contains("active-spoiler")) {
+            spoilerTitle.nextElementSibling.hidden = true;
+          }
+        } else {
+          spoilerTitle.setAttribute("tabindex", "-1");
+          spoilerTitle.nextElementSibling.hidden = false;
+        }
+      });
+    }
+  };
+
+  var setSpoilerAction = function setSpoilerAction(e) {
+    var el = e.target;
+
+    if (el.hasAttribute('data-spoiler') || el.closest('[data-spoiler]')) {
+      var spoilerTitle = el.hasAttribute('data-spoiler') ? el : el.closest('[data-spoiler]');
+      var spoilersBlock = spoilerTitle.closest('[data-spoilers]');
+      var oneSpoiler = spoilersBlock.hasAttribute('data-one-spoiler') ? true : false;
+
+      if (!spoilersBlock.querySelectorAll(".slide").length) {
+        if (oneSpoiler && !spoilerTitle.classList.contains("active-spoiler")) {
+          hideSpoilerBody(spoilersBlock);
+        }
+
+        spoilerTitle.classList.toggle("active-spoiler");
+        slideToggle(spoilerTitle.nextElementSibling, 500);
+      }
+
+      e.preventDefault();
+    }
+  };
+
+  var hideSpoilerBody = function hideSpoilerBody(spoilersBlock) {
+    var spoilerActiveTitle = spoilersBlock.querySelector('[data-spoiler].active-spoiler');
+
+    if (spoilerActiveTitle) {
+      spoilerActiveTitle.classList.remove("active-spoiler");
+      slideUp(spoilerActiveTitle.nextElementSibling, 500);
+    }
+  };
+
+  // Получение обычный спойлеров
+  var spoilersRegular = Array.from(spoilersArray).filter(function (item, index, self) {
+    return !item.dataset.spoilers.split(",")[0];
+  }); // Инициализация обычных спойлеров
+
+  if (spoilersRegular.length > 0) {
+    initSpoilers(spoilersRegular);
+  } // Получение спойлеров с медиа запросами
+
+
+  var spoilersMedia = Array.from(spoilersArray).filter(function (item, index, self) {
+    return item.dataset.spoilers.split(",")[0];
+  }); // Инициализация спойлеров с медиа запросами
+
+  if (spoilersMedia.length > 0) {
+    var breakpointsArray = [];
+    spoilersMedia.forEach(function (item) {
+      var params = item.dataset.spoilers;
+      var breakpoint = {};
+      var paramsArray = params.split(",");
+      breakpoint.value = paramsArray[0];
+      breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : "max";
+      breakpoint.item = item;
+      breakpointsArray.push(breakpoint);
+    }); // Получаем уникальные брейкпоинты
+
+    var mediaQueries = breakpointsArray.map(function (item) {
+      return "(" + item.type + "-width: " + item.value + "px)," + item.value + "," + item.type;
+    });
+    mediaQueries = mediaQueries.filter(function (item, index, self) {
+      return self.indexOf(item) === index;
+    }); // Работаем с каждым брейкпоинтом
+
+    mediaQueries.forEach(function (breakpoint) {
+      var paramsArray = breakpoint.split(",");
+      var mediaBreakpoint = paramsArray[1];
+      var mediaType = paramsArray[2];
+      var matchMedia = window.matchMedia(paramsArray[0]); // Объекты с нужными условиями
+
+      var spoilersArray = breakpointsArray.filter(function (item) {
+        if (item.value === mediaBreakpoint && item.type === mediaType) {
+          return true;
+        }
+      });
+      matchMedia.addEventListener("change", function () {
+        initSpoilers(spoilersArray, matchMedia);
+      });
+      initSpoilers(spoilersArray, matchMedia);
+    });
+  }
+}
+
 var brandsSlider = new Swiper('.brands__slider', {
   speed: 800,
   loop: true,
@@ -419,6 +543,28 @@ var resultSlider = new Swiper('.result__slider', {
   pagination: {
     el: '.result__dots',
     clickable: true
+  }
+});
+var aboutSlider = new Swiper('.slider-about-page__body', {
+  speed: 800,
+  slidesPerView: 1,
+  loop: true,
+  spaceBetween: 30,
+  centeredSlides: true,
+  roundLengths: true,
+  loopAdditionalSlides: 30,
+  navigation: {
+    nextEl: ".slider-about-page__button-next",
+    prevEl: ".slider-about-page__button-prev"
+  },
+  breakpoints: {
+    1300: {
+      spaceBetween: 95,
+      slidesPerView: 3
+    },
+    991: {
+      slidesPerView: 3
+    }
   }
 });
 window.addEventListener('click', function (e) {
@@ -577,3 +723,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+var tabLinks = document.querySelectorAll(".tabs__item");
+var tabContent = document.querySelectorAll(".tabs-content");
+tabLinks.forEach(function (el) {
+  el.addEventListener("click", openTabs);
+});
+
+function openTabs(el) {
+  var btnTarget = el.currentTarget;
+  var title = btnTarget.dataset.tabTitle;
+  tabContent.forEach(function (el) {
+    el.classList.remove("active");
+  });
+  tabLinks.forEach(function (el) {
+    el.classList.remove("active");
+  });
+  document.querySelector("#" + title).classList.add("active");
+  btnTarget.classList.add("active");
+}
