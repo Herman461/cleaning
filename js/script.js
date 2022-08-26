@@ -404,10 +404,10 @@ var brandsSlider = new Swiper('.brands__slider', {
       spaceBetween: 50
     },
     767: {
-      slidesPerView: 4
+      slidesPerView: 3.9
     },
     574: {
-      slidesPerView: 3
+      slidesPerView: 2.9
     }
   }
 });
