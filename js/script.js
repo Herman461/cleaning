@@ -665,7 +665,7 @@ if (iconMenu) {
   });
 }
 
-window.addEventListener('scroll', function () {
+function fixHeader() {
   if (document.documentElement.scrollTop > 10 && !header.classList.contains('scroll')) {
     header.classList.add('scroll');
     return;
@@ -674,7 +674,10 @@ window.addEventListener('scroll', function () {
   if (document.documentElement.scrollTop < 10 && header.classList.contains('scroll')) {
     header.classList.remove('scroll');
   }
-});
+}
+
+fixHeader();
+window.addEventListener('scroll', fixHeader);
 
 if (document.querySelector('#calendar')) {
   var picker = datepicker('#calendar', {

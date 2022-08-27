@@ -2743,6 +2743,10 @@ body.loaded .logo {
   right: auto;
 }
 
+.preloader.hidden {
+  pointer-events: none;
+}
+
 .preloader.hidden .preloader__logo {
   -webkit-transition: all 0.6s ease 0.1s;
   transition: all 0.6s ease 0.1s;
@@ -5264,6 +5268,15 @@ body.loaded .logo {
 
   .statistics-about__item {
     padding: 15px 18px;
+  }
+
+  .preloader__logo {
+    left: calc(50% - 140px);
+  }
+
+  .preloader__logo img {
+    width: 280px;
+    height: 280px;
   }
 
   .slider-about-page__slide img {
