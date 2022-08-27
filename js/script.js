@@ -567,6 +567,16 @@ var aboutSlider = new Swiper('.slider-about-page__body', {
     }
   }
 });
+var preloader = document.querySelector('.preloader');
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    preloader.classList.add('loaded');
+  }, 300);
+  setTimeout(function () {
+    preloader.classList.add('hidden');
+    document.body.classList.add('loaded');
+  }, 1200);
+});
 window.addEventListener('click', function (e) {
   if (e.target.closest('.result-controls__button-prev')) {
     resultSlider.slidePrev();
